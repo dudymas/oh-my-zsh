@@ -36,12 +36,32 @@ __cat() {
     __fleetctl_units
 }
 
+__journal() {
+    __fleetctl_units
+}
+
 # end commands -------
 # --------------------
 
 local -a _1st_arguments
 _1st_arguments=(
     "cat":"Output the contents of a submitted unit"
+    "destroy":"Destroy one or more units in the cluster"
+    "fd-forward":"Proxy stdin and stdout to a unix domain socket"
+    "help":"Show a list of commands or help for one command"
+    "journal":"Print the journal of a unit in the cluster to stdout"
+    "list-machines":"Enumerate the current hosts in the cluster"
+    "list-unit-files":"List the units that exist in the cluster."
+    "list-units":"List the current state of units in the cluster"
+    "load":"Schedule one or more units in the cluster, first submitting them if necessary."
+    "ssh":"Open interactive shell on a machine in the cluster"
+    "start":"Instruct systemd to start one or more units in the cluster, first submitting and loading if necessary."
+    "status":"Output the status of one or more units in the cluster"
+    "stop":"Instruct systemd to stop one or more units in the cluster."
+    "submit":"Upload one or more units to the cluster without starting them"
+    "unload":"Unschedule one or more units in the cluster."
+    "verify":"DEPRECATED - No longer works"
+    "version":"Print the version and exit"
 )
 
 _arguments '*:: :->command'
@@ -55,4 +75,6 @@ local -a _command_args
 case "$words[1]" in
     cat)
         __cat ;;
+    journal)
+        __journal ;;
 esac
