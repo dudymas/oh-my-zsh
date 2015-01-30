@@ -10,7 +10,7 @@
 # Output a selectable list of all fleet machines
 __fleetctl_machines() {
     declare -a mach_cmd
-    mach_cmd=($(fleetctl list-machines | awk 'NR>1{print $1":[CON("$1")"$2"("$3")]"}'))
+    mach_cmd=($(fleetctl list-machines | sed 's/\.\{3\}//' | awk 'NR>1{print $1":"$2}'))
     _describe 'machines' mach_cmd
 }
 
@@ -38,6 +38,14 @@ __cat() {
 
 __journal() {
     __fleetctl_units
+}
+
+__status() {
+    __fleetctl_units
+}
+
+__ssh() {
+    __fleetctl_machines
 }
 
 # end commands -------
@@ -77,4 +85,8 @@ case "$words[1]" in
         __cat ;;
     journal)
         __journal ;;
+    status)
+        __status ;;
+    ssh)
+        __ssh ;;
 esac
